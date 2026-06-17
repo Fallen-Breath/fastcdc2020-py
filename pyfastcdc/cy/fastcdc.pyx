@@ -66,7 +66,7 @@ cdef class FastCDC:
 		self.config.min_size = min_size
 		self.config.max_size = max_size
 
-		bits = avg_size.bit_length() - 1
+		bits = utils.logarithm2(avg_size)
 		self.config.mask_s = MASKS[bits + normalized_chunking]
 		self.config.mask_l = MASKS[bits - normalized_chunking]
 		self.config.mask_s_ls = self.config.mask_s << 1

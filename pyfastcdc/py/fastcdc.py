@@ -81,7 +81,7 @@ class FastCDC:
 		if not (0 <= normalized_chunking <= 3):
 			raise ValueError(f'normalized_chunking {normalized_chunking} is out of range [0, 3]')
 
-		bits = avg_size.bit_length() - 1
+		bits = utils.logarithm2(avg_size)
 		mask_s = MASKS[bits + normalized_chunking]
 		mask_l = MASKS[bits - normalized_chunking]
 		mask_s_ls = (mask_s << 1) & _UINT64_MASK
