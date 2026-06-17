@@ -11,8 +11,10 @@ ReadintoFunc = Callable[[memoryview], int]
 
 def logarithm2(value: int) -> int:
 	# The same as the nlfiedler/fastcdc-rs v4.0.1 Rust implementation: (value as f64).log2().round() as u32
-	if value <= 0:
-		raise ValueError('value must be positive')
+	if value < 0:
+		raise ValueError(f'value must be non-negative, got {value}')
+	if value == 0:
+		return 0
 	return math.floor(math.log2(value) + 0.5)
 
 
