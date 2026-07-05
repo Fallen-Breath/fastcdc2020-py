@@ -3,6 +3,7 @@ from typing import Optional, Union, Iterator
 
 import cython
 from cpython.mem cimport PyMem_Malloc, PyMem_Free
+from libc.math cimport log2, round
 from libc.stdint cimport uint8_t, uint32_t, uint64_t
 from libc.string cimport memmove
 
@@ -66,7 +67,7 @@ cdef class FastCDC:
 		self.config.min_size = min_size
 		self.config.max_size = max_size
 
-		bits = avg_size.bit_length() - 1
+		bits = <int>round(log2(avg_size))
 		self.config.mask_s = MASKS[bits + normalized_chunking]
 		self.config.mask_l = MASKS[bits - normalized_chunking]
 		self.config.mask_s_ls = self.config.mask_s << 1
